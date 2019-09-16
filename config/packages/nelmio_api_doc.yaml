@@ -1,0 +1,66 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: HDPN API
+            description: La Hotte du Père Noël
+            version: 1.0.0
+        securityDefinitions:
+            Bearer:
+                type: apiKey
+                description: "Value: Bearer {jwt}"
+                name: Authorization
+                in: header
+            security:
+                - Bearer: []
+
+        paths:
+            ##### Accounts #####
+            /api/login_check:
+                post:
+                    tags:
+                        - Account
+                    summary: "Allow anonymous user to login & obtain token"
+                    parameters:
+                        - in: body
+                          name: body
+                          required: true
+                          schema:
+                              $ref: "#/definitions/CredentialsInput"
+
+                    responses:
+                        200:
+                            description: "Successful login"
+                            schema:
+                                $ref: "#/definitions/UserInfoOutput"
+        definitions:
+            CredentialsInput:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        required: true
+                    password:
+                        type: string
+                        required: true
+            UserInfoOutput:
+                type: object
+                properties:
+                    firstname:
+                        type: string
+                        required: false
+                    lastname:
+                        type: string
+                        required: false
+                    username:
+                        type: string
+                        required: true
+                    email:
+                        type: string
+                        required: true
+                    gender:
+                        type: string
+                        required: false
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc
+            - /api/doc.json

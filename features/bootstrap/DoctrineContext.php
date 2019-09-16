@@ -116,9 +116,7 @@ class DoctrineContext implements Context
                 $user = new User(
                     $object->getUsername(),
                     $object->getEmail(),
-                    $encoder->encodePassword($object->getPassword(), ''),
-                    $object->getFirstname(),
-                    $object->getLastname()
+                    $encoder->encodePassword($object->getPassword(), '')
                 );
 
                 $this->getManager()->persist($user);

@@ -16,3 +16,7 @@
 .vagrant
 node_modules/
 ubuntu-bionic-18.04-cloudimg-console.log
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

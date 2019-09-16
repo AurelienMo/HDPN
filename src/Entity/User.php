@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -59,25 +60,32 @@ class User extends AbstractEntity implements UserInterface
     protected $roles;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $firstname;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $lastname;
 
     /**
-     * @var int
+     * @var int|null
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $gender;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $securityPolicyAcceptedAt;
 
     /**
      * User constructor.
@@ -85,25 +93,19 @@ class User extends AbstractEntity implements UserInterface
      * @param string $username
      * @param string $email
      * @param string $password
-     * @param string $firstname
-     * @param string $lastname
-     * @param int    $gender
+     *
+     * @throws \Exception
      */
     public function __construct(
         string $username,
         string $email,
-        string $password,
-        string $firstname,
-        string $lastname,
-        int $gender
+        string $password
     ) {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
-        $this->gender = $gender;
         $this->roles[] = 'ROLE_USER';
+        $this->securityPolicyAcceptedAt = new DateTime();
         parent::__construct();
     }
 
@@ -141,26 +143,34 @@ class User extends AbstractEntity implements UserInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFirstname(): string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
-        return self::LIST_GENDER[$this->gender];
+        return !is_null($this->gender) ? self::LIST_GENDER[$this->gender] : null;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getSecurityPolicyAcceptedAt(): DateTime
+    {
+        return $this->securityPolicyAcceptedAt;
     }
 }

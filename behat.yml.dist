@@ -12,8 +12,8 @@ default:
                     entityManager: '@doctrine.orm.entity_manager'
                 - CustomRestContext
                 - behatch:context:json
-                - MailContext:
-                    kernel: '@kernel'
+                #- MailContext:
+                #    kernel: '@kernel'
                 #- RemoteWebserviceContext:
                 #    httpClient: '@httplug.client.mock'
 
@@ -43,8 +43,8 @@ coverage:
                     entityManager: '@doctrine.orm.entity_manager'
                 - CustomRestContext
                 - behatch:context:json
-                - MailContext:
-                   kernel: '@kernel'
+                #- MailContext:
+                #   kernel: '@kernel'
                 #- RemoteWebserviceContext:
                 #    httpClient: '@httplug.client.mock'
     extensions:
