@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Domain\Account\Registration\RegistrationInput;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -172,5 +173,14 @@ class User extends AbstractEntity implements UserInterface
     public function getSecurityPolicyAcceptedAt(): DateTime
     {
         return $this->securityPolicyAcceptedAt;
+    }
+
+    public static function create(RegistrationInput $input, string $passwordEncoded)
+    {
+        return new self(
+            (string) $input->getUsername(),
+            (string) $input->getEmail(),
+            $passwordEncoded
+        );
     }
 }

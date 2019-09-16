@@ -32,7 +32,7 @@ nelmio_api_doc:
                             description: "Successful login"
                             schema:
                                 $ref: "#/definitions/UserInfoOutput"
-            /api/account:
+            /api/account/anon/create:
                 post:
                     tags:
                         - Account
@@ -46,8 +46,6 @@ nelmio_api_doc:
                     responses:
                         201:
                             description: "Successful creation"
-                            schema:
-                                $ref: "#/definitions/UserInfoOutput"
                         400:
                             description: "Bad request"
 
