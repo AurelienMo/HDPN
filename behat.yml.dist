@@ -1,0 +1,89 @@
+default:
+    suites:
+        default:
+            contexts:
+                - DoctrineContext:
+                    doctrine: '@doctrine'
+                    kernel: '@kernel'
+                    encoderFactory: '@security.encoder_factory'
+                - CustomMinkContext
+                - CommandContext:
+                    encoderFactory: '@security.encoder_factory'
+                    entityManager: '@doctrine.orm.entity_manager'
+                - CustomRestContext
+                - behatch:context:json
+                - MailContext:
+                    kernel: '@kernel'
+                #- RemoteWebserviceContext:
+                #    httpClient: '@httplug.client.mock'
+
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: App\Kernel
+        Behat\MinkExtension:
+                sessions:
+                    default:
+                        symfony2: ~
+        Behatch\Extension: ~
+
+coverage:
+    suites:
+        default:
+            contexts:
+                - CustomMinkContext
+                - Doctrine:
+                    doctrine: '@doctrine'
+                    kernel: '@kernel'
+                    encoderFactory: '@security.encoder_factory'
+                - CommandContext:
+                    encoderFactory: '@security.encoder_factory'
+                    entityManager: '@doctrine.orm.entity_manager'
+                - CustomRestContext
+                - behatch:context:json
+                - MailContext:
+                   kernel: '@kernel'
+                #- RemoteWebserviceContext:
+                #    httpClient: '@httplug.client.mock'
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                bootstrap: features/bootstrap/bootstrap.php
+                class: App\Kernel
+        Behat\MinkExtension:
+                sessions:
+                    default:
+                        symfony2: ~
+        Behatch\Extension: ~
+        LeanPHP\Behat\CodeCoverage\Extension:
+          # select which driver to use when gatherig coverage data
+          drivers:
+            - local     # local Xdebug driver
+          # filter options
+          filter:
+            forceCoversAnnotation:                false
+            mapTestClassNameToCoveredClassName:   false
+            whitelist:
+              addUncoveredFilesFromWhitelist:     true
+              processUncoveredFilesFromWhitelist: false
+              include:
+                directories:
+                  'src': ~
+                  'tests':
+                    suffix: '.php'
+
+              exclude:
+                directories:
+                  'src/Entity': ~
+                  'src/DoctrineMigrations': ~
+                  'src/Domain/CreateAccountFromCli': ~
+                files:
+                  - src/Kernel.php
+                  - src/Domain/Common/Helper/NelmioAliceHelper.php
+          # report configuration
+          report:
+            format:    html
+            options:
+              target: var/behat-coverage/html
