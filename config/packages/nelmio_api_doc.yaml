@@ -32,7 +32,33 @@ nelmio_api_doc:
                             description: "Successful login"
                             schema:
                                 $ref: "#/definitions/UserInfoOutput"
+            /api/account:
+                post:
+                    tags:
+                        - Account
+                    summary: "Allow anonymous user to create an account"
+                    parameters:
+                        - in: body
+                          name: body
+                          required: true
+                          schema:
+                              $ref: "#/definitions/CreateAccountInput"
+                    response:
+                        201:
+                            description: "Successful creation"
         definitions:
+            CreateAccountInput:
+                type: object
+                properties:
+                    username:
+                        type: string
+                        required: true
+                    email:
+                        type: string
+                        required: true
+                    password:
+                        type: string
+                        required: true
             CredentialsInput:
                 type: object
                 properties:
@@ -60,6 +86,15 @@ nelmio_api_doc:
                     gender:
                         type: string
                         required: false
+                    token:
+                        type: string
+                        required: true
+                    refresh_token:
+                        type: string
+                        required: true
+                    token_ttl:
+                        type: integer
+                        required: true
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

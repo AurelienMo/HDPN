@@ -24,6 +24,20 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class JWTListener
 {
+    /** @var int */
+    protected $tokenTtl;
+
+    /**
+     * JWTListener constructor.
+     *
+     * @param int $tokenTtl
+     */
+    public function __construct(
+        int $tokenTtl
+    ) {
+        $this->tokenTtl = $tokenTtl;
+    }
+
     /**
      * @param AuthenticationFailureEvent $event
      */
@@ -55,6 +69,7 @@ class JWTListener
             'email' => $user->getEmail(),
             'gender' => $user->getGender(),
         ];
+        $data['token_ttl'] = $this->tokenTtl;
 
         $event->setData($data);
     }

@@ -27,3 +27,4 @@ Feature: As an anonymous user, I need to be able to login and obtain token
     And the JSON node "user.firstname" should exist
     And the JSON node "user.lastname" should exist
     And the JSON node "user.gender" should exist
+    And the JSON node "token_ttl" should be equal to 3600
