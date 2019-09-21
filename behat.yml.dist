@@ -34,7 +34,7 @@ coverage:
         default:
             contexts:
                 - CustomMinkContext
-                - Doctrine:
+                - DoctrineContext:
                     doctrine: '@doctrine'
                     kernel: '@kernel'
                     encoderFactory: '@security.encoder_factory'

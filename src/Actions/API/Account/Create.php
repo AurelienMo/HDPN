@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @Route("/account/anon/create", name="create_account", methods={"POST"})
  */
-class Create
+final class Create
 {
     /** @var EventDispatcherInterface */
     protected $eventDispatcher;
@@ -44,7 +44,7 @@ class Create
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         /** @var RequestInputEvent $inputEvent */
         $inputEvent = $this->eventDispatcher->dispatch(

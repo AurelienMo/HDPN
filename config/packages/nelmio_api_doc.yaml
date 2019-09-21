@@ -48,34 +48,7 @@ nelmio_api_doc:
                             description: "Successful creation"
                         400:
                             description: "Bad request"
-            api/account/anon/recovery-request:
-                post:
-                    tags:
-                        - Account
-                    summary: "Allow anonymous user to send password request"
-                    parameters:
-                        - in: body
-                          name: body
-                          required: true
-                          schema:
-                              $ref: "#/definitions/RequestPasswordInput"
-                        - in: query
-                          name: type
-                          required: true
-                          description: "'ask' or 'response' value"
-                    responses:
-                        201:
-                            description: "Successful password request"
-                        400:
-                            description: "Bad request"
-
         definitions:
-            RequestPasswordInput:
-                type: object
-                properties:
-                    email:
-                        type: string
-                        required: true
             CreateAccountInput:
                 type: object
                 properties:

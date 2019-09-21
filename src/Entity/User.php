@@ -89,11 +89,19 @@ class User extends AbstractEntity implements UserInterface
     protected $securityPolicyAcceptedAt;
 
     /**
+     * @var WalletVirtual
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\WalletVirtual", cascade={"persist"})
+     * @ORM\JoinColumn(name="amo_wallet_virtual_id", referencedColumnName="id")
+     */
+    protected $wallet;
+
+    /**
      * User constructor.
      *
-     * @param string $username
-     * @param string $email
-     * @param string $password
+     * @param string        $username
+     * @param string        $email
+     * @param string        $password
      *
      * @throws \Exception
      */
@@ -107,6 +115,7 @@ class User extends AbstractEntity implements UserInterface
         $this->password = $password;
         $this->roles[] = 'ROLE_USER';
         $this->securityPolicyAcceptedAt = new DateTime();
+        $this->wallet = new WalletVirtual();
         parent::__construct();
     }
 
@@ -182,5 +191,13 @@ class User extends AbstractEntity implements UserInterface
             (string) $input->getEmail(),
             $passwordEncoded
         );
+    }
+
+    /**
+     * @return WalletVirtual
+     */
+    public function getWallet(): WalletVirtual
+    {
+        return $this->wallet;
     }
 }
