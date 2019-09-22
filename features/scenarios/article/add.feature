@@ -8,7 +8,7 @@ Feature: As an auth user, I need to be able to add article to sell
     And object "App\Entity\Brand" with property "name" as value "Lego" should have following id "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
     And object "App\Entity\Age" with property "name" as value "3 - 6 ans" should have following id "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaab"
     And object "App\Entity\CategoryArticle" with property "name" as value "Jeux de construction" should have following id "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaac"
-    
+
 
   Scenario: [Fail] No auth
     When I send a "POST" request to "/api/articles" with body:
