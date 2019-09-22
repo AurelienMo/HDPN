@@ -59,7 +59,7 @@ final class LoadInitDatasCommand extends Command
     protected function execute(
         InputInterface $input,
         OutputInterface $output
-    ):void {
+    ) {
         $this->loaderNelmio->load(
             sprintf(
                 '%s/fixtures/%s',
