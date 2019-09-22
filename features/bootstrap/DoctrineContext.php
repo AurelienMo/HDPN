@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 use App\Entity\AbstractEntity;
 use App\Entity\Account;
+use App\Entity\Article;
 use App\Entity\CfgBank;
 use App\Entity\User;
 use Behat\Behat\Context\Context;
@@ -157,4 +158,40 @@ class DoctrineContext implements Context
         $this->setUuid($entity, $targetId);
         $this->getManager()->flush();
     }
+
+    /**
+     * @Then object on entity :arg1 with property :arg2 and value :arg3 should be exist
+     */
+    public function objectOnEntityWithPropertyAndValueShouldBeExist($arg1, $arg2, $arg3)
+    {
+        $entity = $this->doctrine->getRepository($arg1)
+                                 ->findOneBy(
+                                     [
+                                         $arg2 => $arg3,
+                                     ]
+                                 );
+
+        if (is_null($entity)) {
+            throw new Exception('Object should be exist');
+        }
+    }
+
+    /**
+     * @Then article :arg1 should have brand name :arg2
+     */
+    public function articleShouldHaveBrandName($name, $brandName)
+    {
+        $article = $this->doctrine->getRepository(Article::class)->findOneBy(['name' => $name]);
+
+        if ($article->getBrand()->getName() !== $brandName) {
+            throw new Exception(
+                sprintf(
+                    "'%s' brand name expected, '%s' occured",
+                    $brandName,
+                    $article->getBrand()->getName()
+                )
+            );
+        }
+    }
+
 }

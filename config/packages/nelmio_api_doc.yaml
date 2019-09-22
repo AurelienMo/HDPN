@@ -48,7 +48,128 @@ nelmio_api_doc:
                             description: "Successful creation"
                         400:
                             description: "Bad request"
+            #### Article ####
+            /api/articles:
+                post:
+                    security:
+                        - Bearer: []
+                    tags:
+                        - Article
+                    summary: "Allow user to add an article to sell this"
+                    parameters:
+                        - in: body
+                          name: body
+                          required: true
+                          schema:
+                              $ref: "#/definitions/NewArticleInput"
+                    responses:
+                        201:
+                            description: "Successful creation"
+                            schema:
+                                $ref: "#/definitions/ShortListArticleOut"
         definitions:
+            ShortListArticleOut:
+                type: array
+                items:
+                    $ref: "#/definitions/ArticleOut"
+            ArticleOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        required: true
+                    name:
+                        type: string
+                        required: true
+                    description:
+                        type: string
+                    price:
+                        type: number
+                        required: true
+                    ageMin:
+                        type: integer
+                    ageMax:
+                        type: integer
+                    gender:
+                        type: string
+                        required: true
+                    createdAt:
+                        type: string
+                        format: datetime
+                        example: "2019/09/21 10:00:00"
+                    updatedAt:
+                        type: string
+                        format: datetime
+                        example: "2019/09/21 10:00:00"
+                    brand:
+                        type: object
+                        $ref: "#/definitions/BrandOut"
+                    owner:
+                        type: object
+                        $ref: "#/definitions/UserOut"
+                    images:
+                        type: array
+                        $ref: "#/definitions/ImageOut"
+            ImageOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                    path:
+                        type: string
+            UserOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                    username:
+                        type: string
+
+            BrandOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                    name:
+                        type: string
+            NewArticleInput:
+                type: object
+                properties:
+                    name:
+                        type: string
+                        required: true
+                    description:
+                        type: string
+                        required: false
+                    price:
+                        type: number
+                        required: true
+                    gender:
+                        type: string
+                        required: true
+                        example: "boy, girl, mixed"
+                    min:
+                        type: string
+                        required: false
+                    max:
+                        type: string
+                        required: false
+                    brand:
+                        type: string
+                        required: false
+                    images:
+                        type: array
+                        required: false
+                        items:
+                            $ref: "#/definitions/ImageInput"
+
+            ImageInput:
+                type: object
+                properties:
+                    image:
+                        type: string
+                        format: byte
+                        required: true
             CreateAccountInput:
                 type: object
                 properties:

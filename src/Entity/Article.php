@@ -29,8 +29,8 @@ class Article extends AbstractEntity
     use NameTrait;
 
     const LIST_STATE = [
-        'for_sell' => 'A vendre',
-        'sold' => 'Vendu',
+        'for_sell',
+        'sold',
     ];
     const LIST_GAME_GENDER = [
         'boy' => 'Garçon',
@@ -106,19 +106,19 @@ class Article extends AbstractEntity
     /**
      * Article constructor.
      *
-     * @param User                      $owner
-     * @param string                    $state
-     * @param string|null               $description
-     * @param float                     $price
-     * @param string                    $gender
-     * @param int|null                  $ageMin
-     * @param int|null                  $ageMax
-     * @param Brand|null                $brand
-     * @param array|null                $images
+     * @param string      $name
+     * @param User        $owner
+     * @param string|null $description
+     * @param float       $price
+     * @param string      $gender
+     * @param int|null    $ageMin
+     * @param int|null    $ageMax
+     * @param Brand|null  $brand
+     * @param array|null  $images
      */
     public function __construct(
+        string $name,
         User $owner,
-        string $state,
         ?string $description,
         float $price,
         string $gender,
@@ -127,8 +127,9 @@ class Article extends AbstractEntity
         ?Brand $brand,
         ?array $images
     ) {
+        $this->name = $name;
         $this->owner = $owner;
-        $this->state = $state;
+        $this->state = 'for_sell';
         $this->description = $description;
         $this->price = $price;
         $this->gender = $gender;

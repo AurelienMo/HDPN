@@ -1,0 +1,5 @@
+App\Entity\Brand:
+    brand.lego:
+        __construct: ["Lego"]
+    brand.smoby:
+        __construct: ["Smoby"]
