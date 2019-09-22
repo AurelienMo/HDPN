@@ -81,6 +81,12 @@ nelmio_api_doc:
                     name:
                         type: string
                         required: true
+                    category:
+                        type: object
+                        $ref: "#/definitions/CategoryArticleOut"
+                    age:
+                        type: object
+                        $ref: "#/definitions/AgeArticleOut"
                     description:
                         type: string
                     price:
@@ -110,6 +116,24 @@ nelmio_api_doc:
                     images:
                         type: array
                         $ref: "#/definitions/ImageOut"
+            CategoryArticleOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        required: true
+                    name:
+                        type: string
+                        required: true
+            AgeArticleOut:
+                type: object
+                properties:
+                    id:
+                        type: string
+                        required: true
+                    name:
+                        type: string
+                        required: true
             ImageOut:
                 type: object
                 properties:
@@ -138,6 +162,14 @@ nelmio_api_doc:
                     name:
                         type: string
                         required: true
+                    category:
+                        type: string
+                        required: true
+                        description: Uniq id of category
+                    age:
+                        type: string
+                        required: true
+                        description: Age targeted for this article
                     description:
                         type: string
                         required: false
@@ -148,12 +180,6 @@ nelmio_api_doc:
                         type: string
                         required: true
                         example: "boy, girl, mixed"
-                    min:
-                        type: string
-                        required: false
-                    max:
-                        type: string
-                        required: false
                     brand:
                         type: string
                         required: false

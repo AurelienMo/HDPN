@@ -1,0 +1,35 @@
+App\Entity\Brand:
+    androni:
+        __construct: ["Androni"]
+    apicoove:
+        __construct: ["Apicoove"]
+    bandai:
+        __construct: ["Bandai"]
+    caterpillar:
+        __construct: ["Caterpillar"]
+    geomag:
+        __construct: ["Geomag"]
+    jumbo:
+        __construct: ["Jumbo"]
+    lego:
+        __construct: ["Lego"]
+    meccano:
+        __construct: ["Meccano"]
+    nathan:
+        __construct: ["Nathan"]
+    nerf:
+        __construct: ["Nerf"]
+    nintendo:
+        __construct: ["Nintendo"]
+    playmobil:
+        __construct: ["Playmobil"]
+    playstation:
+        __construct: ["Playstation"]
+    playdoe:
+        __construct: ["Play-Doh"]
+    ravensburger:
+        __construct: ["Ravensburger"]
+    vtech:
+        __construct: ["Vtech"]
+    xbox:
+        __construct: ["XBox"]

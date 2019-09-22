@@ -75,20 +75,6 @@ class Article extends AbstractEntity
     protected $gender;
 
     /**
-     * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $ageMin;
-
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $ageMax;
-
-    /**
      * @var Brand|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Brand")
@@ -104,37 +90,53 @@ class Article extends AbstractEntity
     protected $images;
 
     /**
+     * @var Age
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Age")
+     * @ORM\JoinColumn(name="amo_age_id", referencedColumnName="id")
+     */
+    protected $age;
+
+    /**
+     * @var CategoryArticle
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategoryArticle")
+     * @ORM\JoinColumn(name="amo_category_id", referencedColumnName="id")
+     */
+    protected $category;
+
+    /**
      * Article constructor.
      *
-     * @param string      $name
-     * @param User        $owner
-     * @param string|null $description
-     * @param float       $price
-     * @param string      $gender
-     * @param int|null    $ageMin
-     * @param int|null    $ageMax
-     * @param Brand|null  $brand
-     * @param array|null  $images
+     * @param string          $name
+     * @param User            $owner
+     * @param Age             $age
+     * @param CategoryArticle $category
+     * @param float           $price
+     * @param string          $gender
+     * @param string|null     $description
+     * @param Brand|null      $brand
+     * @param array|null      $images
      */
     public function __construct(
         string $name,
         User $owner,
-        ?string $description,
+        Age $age,
+        CategoryArticle $category,
         float $price,
         string $gender,
-        ?int $ageMin,
-        ?int $ageMax,
+        ?string $description,
         ?Brand $brand,
         ?array $images
     ) {
         $this->name = $name;
         $this->owner = $owner;
+        $this->age = $age;
+        $this->category = $category;
         $this->state = 'for_sell';
         $this->description = $description;
         $this->price = $price;
         $this->gender = $gender;
-        $this->ageMin = $ageMin;
-        $this->ageMax = $ageMax;
         $this->brand = $brand;
         $this->images = new ArrayCollection(is_array($images) ? $images : []);
         parent::__construct();
@@ -181,22 +183,6 @@ class Article extends AbstractEntity
     }
 
     /**
-     * @return int|null
-     */
-    public function getAgeMin(): ?int
-    {
-        return $this->ageMin;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getAgeMax(): ?int
-    {
-        return $this->ageMax;
-    }
-
-    /**
      * @return Brand|null
      */
     public function getBrand(): ?Brand
@@ -210,5 +196,21 @@ class Article extends AbstractEntity
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * @return Age
+     */
+    public function getAge(): Age
+    {
+        return $this->age;
+    }
+
+    /**
+     * @return CategoryArticle
+     */
+    public function getCategory(): CategoryArticle
+    {
+        return $this->category;
     }
 }

@@ -1,0 +1,17 @@
+App\Entity\Age:
+    6mois:
+        __construct: ["0 - 6 mois"]
+    18mois:
+        __construct: ["6 - 18 mois"]
+    3ans:
+        __construct: ["1,5 - 3 ans"]
+    6ans:
+        __construct: ["3 - 6 ans"]
+    9ans:
+        __construct: ["6 - 9 ans"]
+    12ans:
+        __construct: ["9 - 12 ans"]
+    15ans:
+        __construct: ["12 - 15 ans"]
+    15+:
+        __construct: ["15 ans +"]

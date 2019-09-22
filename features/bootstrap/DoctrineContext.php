@@ -11,6 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
+use App\Domain\Common\Helpers\LoaderNelmioAliceHelper;
 use App\Entity\AbstractEntity;
 use App\Entity\Account;
 use App\Entity\Article;
@@ -45,6 +46,9 @@ class DoctrineContext implements Context
     /** @var EncoderFactoryInterface|EncoderFactory */
     protected $encoderFactory;
 
+    /** @var LoaderNelmioAliceHelper */
+    protected $nativeLoader;
+
     /**
      * DoctrineContext constructor.
      *
@@ -55,12 +59,14 @@ class DoctrineContext implements Context
     public function __construct(
         RegistryInterface $doctrine,
         KernelInterface $kernel,
-        EncoderFactoryInterface $encoderFactory
+        EncoderFactoryInterface $encoderFactory,
+        LoaderNelmioAliceHelper $nativeLoader
     ) {
         $this->doctrine = $doctrine;
         $this->schemaTool = new SchemaTool($this->doctrine->getManager());
         $this->kernel = $kernel;
         $this->encoderFactory = $encoderFactory;
+        $this->nativeLoader = $nativeLoader;
     }
 
     /**
@@ -194,4 +200,11 @@ class DoctrineContext implements Context
         }
     }
 
+    /**
+     * @Given I load production fixtues
+     */
+    public function iLoadProductionFixtues()
+    {
+        $this->nativeLoader->load(__DIR__.'/../../config/fixtures/00_load.yml');
+    }
 }

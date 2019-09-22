@@ -6,6 +6,7 @@ default:
                     doctrine: '@doctrine'
                     kernel: '@kernel'
                     encoderFactory: '@security.encoder_factory'
+                    nativeLoader: '@App\Domain\Common\Helpers\LoaderNelmioAliceHelper'
                 - CustomMinkContext
                 - CommandContext:
                     encoderFactory: '@security.encoder_factory'
@@ -38,6 +39,7 @@ coverage:
                     doctrine: '@doctrine'
                     kernel: '@kernel'
                     encoderFactory: '@security.encoder_factory'
+                    nativeLoader: '@App\Domain\Common\Helpers\LoaderNelmioAliceHelper'
                 - CommandContext:
                     encoderFactory: '@security.encoder_factory'
                     entityManager: '@doctrine.orm.entity_manager'

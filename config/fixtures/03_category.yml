@@ -1,0 +1,27 @@
+App\Entity\CategoryArticle:
+    plein_air:
+        __construct: ["Plein air et jouets sportifs"]
+    figurines_univers:
+        __construct: ["Figures et univers"]
+    jeux_construction:
+        __construct: ["Jeux de construction"]
+    premier_age:
+        __construct: ["Premier âge"]
+    jeux_videos:
+        __construct: ["Jeux vidéos"]
+    educatif:
+        __construct: ["Educatif"]
+    high_tech:
+        __construct: ["High tech"]
+    poupee_peluche:
+        __construct: ["Poupées et peluches"]
+    creatif_artistique:
+        __construct: ["Loisirs créatifs et artistiques"]
+    jeux_imitation:
+        __construct: ["Jeux d'imitation"]
+    jeux_societe_puzzle:
+        __construct: ["Jeux de société et puzzles"]
+    vehicules:
+        __construct: ['Véhicules']
+    divers:
+        __construct: ["Divers"]
