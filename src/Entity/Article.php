@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Domain\Article\Add\NewArticleInput;
 use App\Entity\Traits\NameTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -85,7 +86,7 @@ class Article extends AbstractEntity
     /**
      * @var ArticleImage[]|Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\ArticleImage", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleImage", mappedBy="article", cascade={"persist"})
      */
     protected $images;
 
@@ -212,5 +213,25 @@ class Article extends AbstractEntity
     public function getCategory(): CategoryArticle
     {
         return $this->category;
+    }
+
+    public static function create(
+        NewArticleInput $input,
+        Age $age,
+        CategoryArticle $category,
+        Brand $brand,
+        array $images
+    ) {
+        return new self(
+            $input->getName(),
+            $input->getOwner(),
+            $age,
+            $category,
+            $input->getPrice(),
+            $input->getGender(),
+            $input->getDescription(),
+            $brand,
+            $images
+        );
     }
 }

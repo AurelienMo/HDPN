@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace App\Domain\Common\Events;
 
+use App\Entity\User;
 use ReflectionClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -26,15 +28,21 @@ class RequestInputSubscriber implements EventSubscriberInterface
     /** @var SerializerInterface */
     protected $serializer;
 
+    /** @var TokenStorageInterface */
+    protected $tokenStorage;
+
     /**
      * RequestInputSubscriber constructor.
      *
-     * @param SerializerInterface $serializer
+     * @param SerializerInterface   $serializer
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        TokenStorageInterface $tokenStorage
     ) {
         $this->serializer = $serializer;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public static function getSubscribedEvents()
@@ -65,6 +73,10 @@ class RequestInputSubscriber implements EventSubscriberInterface
             if (property_exists($input, $key)) {
                 $accessor->setValue($input, $key, $value);
             }
+        }
+
+        if (!is_null($this->tokenStorage->getToken()) && $this->tokenStorage->getToken()->getUser() instanceof User) {
+            $accessor->setValue($input, 'owner', $this->tokenStorage->getToken()->getUser());
         }
 
         $event->setInput($input);

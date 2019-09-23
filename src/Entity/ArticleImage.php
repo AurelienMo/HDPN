@@ -33,17 +33,15 @@ class ArticleImage extends AbstractEntity
     /**
      * @var Article|null
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="images")
      * @ORM\JoinColumn(name="amo_article_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
      */
     protected $article;
 
     public function __construct(
-        string $path,
-        ?Article $article
+        string $path
     ) {
         $this->path = $path;
-        $this->article = $article;
         parent::__construct();
     }
 
@@ -61,5 +59,10 @@ class ArticleImage extends AbstractEntity
     public function getArticle(): ?Article
     {
         return $this->article;
+    }
+
+    public static function create(string $filePath)
+    {
+        return new self($filePath);
     }
 }

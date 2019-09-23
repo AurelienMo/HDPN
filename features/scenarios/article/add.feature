@@ -38,7 +38,7 @@ Feature: As an auth user, I need to be able to add article to sell
             "Le type de jouet est requis."
         ],
         "age": [
-            "La tranche d'âge est requise.
+            "La tranche d'âge est requise."
         ],
         "category": [
             "La catégorie est requise."
@@ -78,7 +78,7 @@ Feature: As an auth user, I need to be able to add article to sell
 
 
   Scenario: [Success] Success adding with exist brand
-    And object "App\Entity\Brand" with property "name" as value "Smoby" should have following id "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+    And object "App\Entity\Brand" with property "name" as value "Lego" should have following id "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
     When After authentication on url "/api/login_check" with method "POST" as user "johndoe" with password "12345678", I send a "POST" request to "/api/articles" with body:
     """
     {
